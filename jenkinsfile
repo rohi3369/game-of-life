@@ -2,6 +2,7 @@ pipeline {
        agent any
        parameters {
            choice(name: 'BRANCH', choices: ['master','branch1sp'], description: 'for selecting branch')
+           string(name: 'maven', defaultValue: 'mvn clean install', description: 'mybuild')
                   }
        triggers {
            pollSCM ('* * * * *')
@@ -15,7 +16,7 @@ pipeline {
                            }
            stage ('build') {
             steps {
-              sh "mvn clean install"
+              sh "${params.maven}"
                  }
             }
        
