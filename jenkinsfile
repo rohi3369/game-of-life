@@ -2,7 +2,7 @@ pipeline {
        agent {label 'maven'}
        parameters {
            choice(name: 'BRANCH', choices: ['master','branch1sp'], description: 'for selecting branch')
-           string(name: 'maven', defaultValue: 'mvn install', description: 'mybuild')
+           string(name: 'maven', defaultValue: 'mvn package', description: 'mybuild')
                   }
        triggers {
            pollSCM ('* * * * *')
