@@ -11,13 +11,13 @@ pipeline {
            stage ('clone') {
             steps {
               git url: 'git@github.com:rohi3369/game-of-life.git',
-              branch: '${params.BRANCH}'
+              branch: "${params.BRANCH}"
                 }
                            }
            stage ('build') {
             steps {
               sh 'export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH'
-                sh '${params.maven}'
+                sh "${params.maven}"
                }
             }
        
