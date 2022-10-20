@@ -16,7 +16,8 @@ pipeline {
                            }
            stage ('build') {
             steps {
-              		sh "${params.maven}"
+                  export PATH="/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH"
+                        sh "${params.maven}"
                }
             }
        
