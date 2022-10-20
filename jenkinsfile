@@ -1,0 +1,33 @@
+pipeline {
+       agent any
+       parameters {
+           choice(name: 'BRANCH', choices: ['master','branch1sp'], description: 'for selecting branch')
+                  }
+       triggers {
+           pollSCM ('* * * * *')
+                }
+       stages {
+           stage ('clone') {
+            steps {
+              git url: 'https://github.com/rohi3369/game-of-life.git',
+              branch: "${params.BRANCH}"
+                }
+                           }
+           stage ('build') {
+            steps {
+              sh "mvn clean install"
+                 }
+            }
+       
+       stage('archiveArtifacts'){
+        steps{
+               archiveArtifacts artifacts: '**/target/*.jar'
+            }
+       }
+       stage('archive results') {
+            steps {
+                junit '**/surefire-reports/*.xml'
+            }
+        }
+    }
+}
